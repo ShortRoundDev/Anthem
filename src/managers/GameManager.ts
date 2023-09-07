@@ -49,7 +49,7 @@ export class GameManager {
         this.roomCache.set("Square", new Square());
 
         this.player = new Player(128, 193);
-        this.loadRoom("Barracks", 128, 193);
+        this.loadRoom("Square", 128, 193);
     }
 
     draw() {
@@ -75,7 +75,8 @@ export class GameManager {
 
         let physObjects = this.room!.gameObjects
             .filter(g => g instanceof PhysObject)
-            .map(g => g as PhysObject);
+            .map(g => g as PhysObject)
+            .filter(p => p.solid);
 
         for(let i = 0; i < physObjects.length; i++) {
             for(let j = i + 1; j < physObjects.length; j++) {

@@ -6,7 +6,7 @@ import { PhysObject } from "./PhysObject";
 
 export class Player extends Actor {
     isWalking: boolean = false;
-    armed: boolean = false;
+    armed: boolean = true;
     shootTimeout: number = 0;
     moveVec: {x: number, y: number};
 
@@ -15,9 +15,9 @@ export class Player extends Actor {
             64,
             new Map<string, Animation>([
                 ["Stand-Disarmed", new Animation(0, 0, 0)],
-                ["Walk-Disarmed", new Animation(1, 2, 0.08)],
-                ["Stand-Armed", new Animation(3, 3, 0)],
-                ["Walk-Armed", new Animation(4, 5, 0.08)]
+                ["Walk-Disarmed", new Animation(0, 3, 0.1)],
+                ["Stand-Armed", new Animation(4, 4, 0)],
+                ["Walk-Armed", new Animation(4, 7, 0.08)]
             ]),
             "Stand-Disarmed"
         ));
@@ -115,5 +115,6 @@ export class Player extends Actor {
         if(obj instanceof Bullet && (obj as Bullet).parent != this) {
             console.log("Player hit by bullet");
         }
+
     }
 }

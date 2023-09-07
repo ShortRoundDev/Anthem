@@ -6,7 +6,7 @@ import { PhysObject } from "./PhysObject";
 export class Bullet extends Actor {
     homeX: number;
     homeY: number;
-    constructor(public parent: PhysObject | null, x: number, y: number, private xDir: number, private yDir: number) {
+    constructor(public parent: PhysObject | null, x: number, y: number, public xDir: number, public yDir: number) {
         super(x, y, 16, 16, null, null);
         this.homeX = x;
         this.homeY = y;
@@ -30,12 +30,11 @@ export class Bullet extends Actor {
     }
 
     draw(): void {
-        GFX.ctx.strokeStyle = "grey";
-        GFX.ctx.lineWidth = 1;
+        GFX.ctx.strokeStyle = "white";
+        GFX.ctx.lineWidth = 2;
         GFX.ctx.beginPath();
         GFX.ctx.moveTo(this.aabb.x - this.xDir * 15, this.aabb.y - this.yDir * 15);
         GFX.ctx.lineTo(this.aabb.x, this.aabb.y);
         GFX.ctx.stroke();
     }
-
 }
