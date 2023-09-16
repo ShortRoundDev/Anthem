@@ -11,10 +11,22 @@ export class AssetManager {
             this.loadImage("Player",    "dist/assets/player_3.png"),
             this.loadImage("Bed",       "dist/assets/bed.png"),
             this.loadImage("Trigger",   "dist/assets/trigger.png"),
+            //Rooms
             this.loadImage("Barracks",  "dist/assets/Barracks.png"),
             this.loadImage("Square",    "dist/assets/Square.png"),
+            this.loadImage("Farm",      "dist/assets/Farm.png"),
+            //NPCs
             this.loadImage("Gardener",  "dist/assets/npc-gardener.png"),
             this.loadImage("Dead-NPC",  "dist/assets/Dead-NPC.png"),
+            this.loadImage("GoldenOne", "dist/assets/GoldenOne.png"),
+
+            //UI
+            this.loadImage("ActionKey", "dist/assets/ActionKey.png"),
+
+            //Dialog
+            this.loadImage("PlayerDialog", "dist/assets/Player_Dialog.png"),
+            this.loadImage("NPCDialog", "dist/assets/NPC_Dialog.png"),
+            this.loadImage("GoldenOneDialog", "dist/assets/GoldenOne_Dialog.png"),
         ]);
     }
 

@@ -1,7 +1,7 @@
 import { IRoom } from "../game/rooms/IRoom";
 import { Barracks } from "../game/rooms/Barracks";
-import { EmptyRoom } from "../game/rooms/EmptyRoom";
 import { Square } from "../game/rooms/Square";
+import { Farm } from "../game/rooms/Farm";
 
 import { Player } from "../game/gameObjects/Player";
 import { PhysObject } from "../game/gameObjects/PhysObject";
@@ -11,6 +11,13 @@ type Objective = {
     eventName: string;
     description: string;
 }
+
+export type Dialog = {
+    name: string;
+    image: HTMLImageElement;
+    side: "left" | "right";
+    text: string;
+};
 
 export enum GameEvent {
     observe_golden_one  = "observe_golden_one",
@@ -26,12 +33,18 @@ export class GameManager {
     room?: IRoom;
     objectives: Objective[];
 
+    paused: boolean;
+
     roomCache: Map<string, IRoom>;
     player?: Player;
+
+    dialogBoxes: HTMLElement[] = [];
+    dialogCallback?: () => void;
 
     constructor() {
         this.objectives = [];
         this.roomCache = new Map<string, IRoom>();
+        this.paused = false;
     }
 
     init(): void {
@@ -47,9 +60,10 @@ export class GameManager {
 
         this.roomCache.set("Barracks", new Barracks());
         this.roomCache.set("Square", new Square());
+        this.roomCache.set("Farm", new Farm());
 
-        this.player = new Player(128, 193);
-        this.loadRoom("Square", 128, 193);
+        this.player = new Player(0, 0);
+        this.loadRoom("Farm", 128, 768/2 - 32);
     }
 
     draw() {
@@ -70,7 +84,51 @@ export class GameManager {
         this.room.gameObjects.push(this.player!);
     }
 
+    showDialog(text: Dialog[], callback?: () => void) {
+        this.paused = true;
+        this.dialogBoxes = [];
+
+        for(let dialog of text){
+            let box = document.createElement("div");
+            box.className = "dialog-box";
+
+            box.innerHTML = `
+                <div id="picture" class="${dialog.side}"></div>
+                <div id="name" class="${dialog.side}">${dialog.name}</div>`;
+
+            let lines = dialog.text.split("\n");
+            for(let j = 0; j < lines.length; j++){
+                box.innerHTML += `<p style="animation-delay: ${j}s">${lines[j]}</p>`;
+            }
+            
+            box.innerHTML += `<button>Next</button>`;
+            if(dialog.image){
+                let picture = box.querySelector("#picture");
+                picture?.appendChild(dialog.image);
+                dialog.image.style.animationIterationCount = `${lines.length * 5}`;
+            }
+            //.appendChild(dialog.image);
+            box.querySelector("button")!.addEventListener("click", this.nextDialog.bind(this));
+
+            this.dialogBoxes.push(box);
+        }
+        this.nextDialog();
+    }
+
+    nextDialog(){
+        document.querySelector(".dialog-box")?.remove();
+        let next = this.dialogBoxes.shift();
+        if(!next){
+            this.paused = false;
+            return;
+        }
+        document.body.appendChild(next!);
+    }
+
     update() {
+        if(this.paused) {
+            return;
+        }
         this.room!.update();
 
         let physObjects = this.room!.gameObjects

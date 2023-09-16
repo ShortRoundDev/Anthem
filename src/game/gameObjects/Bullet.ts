@@ -1,4 +1,5 @@
 import { GAME, GFX } from "../../managers";
+import { Wall } from "../rooms/Wall";
 import { Actor } from "./Actor";
 import { GameObject } from "./GameObject";
 import { PhysObject } from "./PhysObject";
@@ -24,6 +25,9 @@ export class Bullet extends Actor {
 
     collide(obj: PhysObject): void {
         if(obj == this.parent) {
+            return;
+        }
+        if(obj instanceof Wall && (obj as Wall).shootThrough){
             return;
         }
         this.destroy();

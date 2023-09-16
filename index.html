@@ -4,6 +4,12 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Webpack App</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+        
+
         <style>
             html, body {
                 margin: 0;
@@ -13,6 +19,140 @@
                 box-sizing: border-box;
                 border: 0px;
             }
+
+            /* Game stuff */
+
+            @keyframes flyInFromLeft {
+                0% {
+                    transform: translateY(150%);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes typewriter {
+                0% {
+                    width: 0;
+                }
+                100% {
+                    width: 100%;
+                }
+            }
+
+            @keyframes talk {
+                0% {
+                    left: 0px;
+                }
+                100% {
+                    left: -128px;
+                }
+            }
+
+            .dialog-box {
+                width: 640px;
+                height: 240px;
+                position: absolute;
+                top: 448px;
+                left: 192px;
+                border-radius: 15px;
+                background-image: url('dist/assets/Paper.png');
+                background-repeat: repeat;
+                font-family: 'Caveat', cursive;
+                box-sizing: border-box;
+                padding: 32px;
+                font-size: 32px;
+                -webkit-box-shadow:  0px 0px 11px 3px rgba(0, 0, 0, 0.5);
+                box-shadow:  0px 0px 11px 3px rgba(0, 0, 0, 0.5);
+                text-shadow: 0px 0px 5px white;
+                animation: flyInFromLeft 0.75s forwards;
+            }
+
+            .dialog-box p {
+                animation: typewriter 1s linear forwards;
+                width: 0px;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                white-space: nowrap; /* Prevent line break */
+            }
+
+            .dialog-box #picture {
+                position: absolute;
+                top: -128px;
+                width: 128px;
+                height: 128px;
+                overflow: hidden;
+                image-rendering: pixelated;
+            }
+
+            .dialog-box #picture img {
+                width: 256px;
+                height: 128px;
+                position: absolute;
+                animation-name: talk;
+                animation-duration: 0.2s;
+                animation-timing-function: steps(2, jump-none);
+                top: 0;
+            }
+
+            #picture.right {
+                right: 0px
+            }
+
+            #picture.right img  {
+                left: -128px;
+            }
+
+            #picture.left img {
+                left: 0px;
+                transform: scaleX(-1);
+            }
+            
+            .dialog-box #name {
+                font-size: 24px;
+                height: 42px;
+                border-radius: 5px;
+                position: absolute;
+                top: -12px;
+                background-color: #ecf0f1;
+                padding: 5px 10px;
+                box-sizing: border-box;
+                font-family: 'Caveat', cursive;
+                -webkit-box-shadow:  0px 0px 11px 3px rgba(0, 0, 0, 0.5);
+                box-shadow:  0px 0px 11px 3px rgba(0, 0, 0, 0.5);
+            }
+
+            .dialog-box button {
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                font-family: 'Caveat', cursive;
+                font-size: 24px;
+                background: #ecf0f1;
+                border: 2px solid black;
+                border-radius: 5px;
+                -webkit-box-shadow:  0px 0px 11px 3px rgba(0, 0, 0, 0.5);
+                box-shadow:  0px 0px 11px 3px rgba(0, 0, 0, 0.5);
+            }
+
+            .dialog-box button:hover {
+                background: black;
+                color: #ecf0f1;
+                cursor: pointer;
+
+            }
+
+            .dialog-box #name.left {
+                left: 15px;
+            }
+
+            .dialog-box #name.right {
+                right: 15px;
+            }
+
         </style>
     </head>
     <body>

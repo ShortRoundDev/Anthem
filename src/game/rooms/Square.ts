@@ -13,14 +13,15 @@ export class Square extends IRoom {
         ];
 
         this.gameObjects.push(
-            new RoomTrigger("Barracks", 32, 768/2 - 64, 32, 128, 1024 - 128, 768/2 - 32),
-            new Gardener(256, 512, Math.PI * 2 * Math.random()),
-            new Gardener(512, 512, Math.PI * 2 * Math.random()),
-            new Gardener(768, 512, Math.PI * 2 * Math.random()),
-            new Gardener(256, 128, Math.PI * 2 * Math.random()),
-            new Gardener(512, 128, Math.PI * 2 * Math.random()),
-            new Gardener(768, 128, Math.PI * 2 * Math.random())
-
+            new RoomTrigger("Barracks",
+                32, 768/2 - 64, 32, 128,
+                1024 - 128, 768/2 - 32
+            ),
+            new RoomTrigger("Farm",
+                1024 - 32, 768/2 - 64,
+                32, 128,
+                64, 768/2 - 32
+            )
         )
     }
 }

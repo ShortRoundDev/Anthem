@@ -5,9 +5,11 @@ import { AABB } from "../physics/AABB";
 export class Wall extends PhysObject {
 
     image?: HTMLImageElement;
+    shootThrough: boolean = false;
 
-    constructor(x: number, y: number, w: number, h: number, image?: string) {
-        super(x, y, w, h);        
+    constructor(x: number, y: number, w: number, h: number, image?: string, shootThrough: boolean = false) {
+        super(x, y, w, h);
+        this.shootThrough = shootThrough;
         if(image){
             let imageElement = ASSET.getImage(image);
             if(imageElement) {
