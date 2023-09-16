@@ -63,7 +63,7 @@ export class GameManager {
         this.roomCache.set("Farm", new Farm());
 
         this.player = new Player(0, 0);
-        this.loadRoom("Farm", 128, 768/2 - 32);
+        this.loadRoom("Farm", 184, 768 - 100);
     }
 
     draw() {
@@ -100,7 +100,7 @@ export class GameManager {
             for(let j = 0; j < lines.length; j++){
                 box.innerHTML += `<p style="animation-delay: ${j}s">${lines[j]}</p>`;
             }
-            
+
             box.innerHTML += `<button>Next</button>`;
             if(dialog.image){
                 let picture = box.querySelector("#picture");
@@ -154,7 +154,6 @@ export class GameManager {
         }
 
         this.room!.gameObjects = this.room!.gameObjects.filter(g => !g.destroyed);
-        console.log(this.room!.gameObjects.length);
     }
 
     drawObjective() {

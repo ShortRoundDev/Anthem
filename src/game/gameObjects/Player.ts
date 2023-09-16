@@ -110,23 +110,6 @@ export class Player extends Actor {
 
         this.angle = this.getMouseAngle() + Math.PI / 2;
         this.updateFrame();
-
-        if(WND.keyDown("e")) {
-            GAME.showDialog([
-                {
-                    name: "Equality 7-2521",
-                    side: "right",
-                    text: `Oh Golden One, we hope that we will be assigned to
-                            the science council today! We are ever so clever,
-                            and our hands are too soft for the hoe!`, image: ASSET.getImage("PlayerDialog")!},
-                {
-                    name: "Golden One",
-                    side: "left",
-                    text: `Indeed; your brains are too strong and your hands
-                            too weak to waste in the fields. The science council
-                            will surely see your worth!`, image: ASSET.getImage("GoldenOneDialog")!}
-            ])
-        }
     }
 
     collide(obj: PhysObject): void {

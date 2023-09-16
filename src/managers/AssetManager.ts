@@ -8,6 +8,7 @@ export class AssetManager {
 
     async init(): Promise<void> {
         await Promise.all([
+            //Entities
             this.loadImage("Player",    "dist/assets/player_3.png"),
             this.loadImage("Bed",       "dist/assets/bed.png"),
             this.loadImage("Trigger",   "dist/assets/trigger.png"),
@@ -19,10 +20,9 @@ export class AssetManager {
             this.loadImage("Gardener",  "dist/assets/npc-gardener.png"),
             this.loadImage("Dead-NPC",  "dist/assets/Dead-NPC.png"),
             this.loadImage("GoldenOne", "dist/assets/GoldenOne.png"),
-
             //UI
             this.loadImage("ActionKey", "dist/assets/ActionKey.png"),
-
+            this.loadImage("FarActionKey", "dist/assets/FarActionKey.png"),
             //Dialog
             this.loadImage("PlayerDialog", "dist/assets/Player_Dialog.png"),
             this.loadImage("NPCDialog", "dist/assets/NPC_Dialog.png"),

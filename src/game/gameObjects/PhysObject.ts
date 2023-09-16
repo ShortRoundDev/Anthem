@@ -11,5 +11,12 @@ export abstract class PhysObject extends GameObject {
         this.solid = true;
     }
 
+    distance(obj: PhysObject): number {
+        return Math.sqrt(
+            Math.pow(this.aabb.x - obj.aabb.x, 2) +
+            Math.pow(this.aabb.y - obj.aabb.y, 2)
+        );
+    }
+
     abstract collide(obj: PhysObject): void;
 }
