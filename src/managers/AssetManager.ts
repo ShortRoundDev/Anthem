@@ -12,12 +12,16 @@ export class AssetManager {
             this.loadImage("Player",    "dist/assets/player_3.png"),
             this.loadImage("Bed",       "dist/assets/bed.png"),
             this.loadImage("Trigger",   "dist/assets/trigger.png"),
+            this.loadImage("GateOpen","dist/assets/gate-open.png"),
+            this.loadImage("GateClosed","dist/assets/gate-closed.png"),
             //Rooms
             this.loadImage("Barracks",  "dist/assets/Barracks.png"),
             this.loadImage("Square",    "dist/assets/Square.png"),
             this.loadImage("Farm",      "dist/assets/Farm.png"),
+            this.loadImage("NorthPath", "dist/assets/north_path.png"),
             //NPCs
             this.loadImage("Gardener",  "dist/assets/npc-gardener.png"),
+            this.loadImage("Archer",  "dist/assets/archer.png"),
             this.loadImage("Dead-NPC",  "dist/assets/Dead-NPC.png"),
             this.loadImage("GoldenOne", "dist/assets/GoldenOne.png"),
             //UI
@@ -25,7 +29,7 @@ export class AssetManager {
             this.loadImage("FarActionKey", "dist/assets/FarActionKey.png"),
             //Dialog
             this.loadImage("PlayerDialog", "dist/assets/Player_Dialog.png"),
-            this.loadImage("NPCDialog", "dist/assets/NPC_Dialog.png"),
+            this.loadImage("NPCDialog",    "dist/assets/NPC_Dialog.png"),
             this.loadImage("GoldenOneDialog", "dist/assets/GoldenOne_Dialog.png"),
         ]);
     }
@@ -45,7 +49,6 @@ export class AssetManager {
     }
 
     getImage(name: string): HTMLImageElement | null {
-        console.log("Get");
         if(this.imageCache.has(name)) {
             return this.imageCache.get(name) as HTMLImageElement;
         }

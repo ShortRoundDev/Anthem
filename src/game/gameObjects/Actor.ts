@@ -46,13 +46,12 @@ export abstract class Actor extends PhysObject {
     ) {
         super(x, y, w, h);
         if(image) {
-            console.log(ASSET);
             let imageElement = ASSET.getImage(image);
             if(imageElement) {
                 this.image = imageElement;
             }
         }
-        
+
         if(animationDescription) {
             this.animationDescription = animationDescription;
         }

@@ -11,6 +11,8 @@ export class Player extends Actor {
     shootTimeout: number = 0;
     moveVec: {x: number, y: number};
 
+    static readonly NAME: string = "Equality 7-2521";
+
     constructor(x: number, y: number) {
         super(x, y, 64, 64, "Player", new AnimationDescription(
             64,
@@ -79,7 +81,6 @@ export class Player extends Actor {
 
         for(let wall of GAME.room!.walls) {
             if(hypoX.intersects(wall.aabb)) {
-                console.log("collide")
                 this.moveVec.x = 0;
             }
             if(hypoY.intersects(wall.aabb)) {
@@ -113,9 +114,5 @@ export class Player extends Actor {
     }
 
     collide(obj: PhysObject): void {
-        if(obj instanceof Bullet && (obj as Bullet).parent != this) {
-            console.log("Player hit by bullet");
-        }
-
     }
 }

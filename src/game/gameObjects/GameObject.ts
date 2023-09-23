@@ -6,5 +6,6 @@ export abstract class GameObject {
     abstract update(): void;
     destroy(): void {
         this.destroyed = true;
+        GAME.destroyedThisFrame = true;
     }
 }

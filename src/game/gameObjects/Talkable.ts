@@ -1,11 +1,14 @@
-import { ASSET, GAME, GFX } from "../../managers";
+import { ASSET, GAME, GFX, WND } from "../../managers";
 import { Dialog, GameManager } from "../../managers/GameManager";
 import { AABB } from "../physics/AABB";
 import { Actor } from "./Actor";
+import { Player } from "./Player";
+
+export type DialogCallback = (player: Player, talkable: Talkable & Actor) => void;
 
 export type Conversation = {
     dialog: Dialog[];
-    callback?: () => void;
+    callback?: DialogCallback;
 }
 
 export interface Talkable {
@@ -15,7 +18,7 @@ export interface Talkable {
     dialogOptions: Map<string, Conversation>;
 }
 
-export function Talk(talkable: Talkable, name?: string): void {
+export function Talk(talkable: Talkable & Actor, name?: string): void {
     let conversation: Conversation | undefined;
     if(name) {
         conversation = talkable.dialogOptions.get(name);
@@ -31,7 +34,7 @@ export function Talk(talkable: Talkable, name?: string): void {
         conversation = talkable.availableConversation;
         talkable.availableConversation = undefined;
     }
-    GAME.showDialog(conversation.dialog, conversation.callback);
+    GAME.showDialog(conversation, talkable);
 }
 
 function CreateDrawTalkNotificationClosure() {
@@ -60,7 +63,6 @@ function CreateDrawTalkNotificationClosure() {
         let image: HTMLImageElement = farNotificationImage!;
         if(distance < talkable.talkRadius) {
             image = notificationImage!;
-            console.log(distance);
         }
 
         GFX.ctx.drawImage(
@@ -68,6 +70,21 @@ function CreateDrawTalkNotificationClosure() {
             aabb.x + aabb.w/2 - 8, aabb.y - 48 + Math.cos(theta) * 6,
             16, 37.5
         );
+    }
+}
+
+export function CheckTalk(this: Talkable & Actor) {
+    if(
+        WND.keyDown("e")
+        && this.availableConversation
+        && this.availableConversation.dialog.length
+        && this.distance(GAME.player!) < this.talkRadius
+    ) {
+        this.angle = Math.atan2(
+            GAME.player!.aabb.y - this.aabb.y,
+            GAME.player!.aabb.x - this.aabb.x
+        ) - Math.PI/2;
+        Talk(this);
     }
 }
 

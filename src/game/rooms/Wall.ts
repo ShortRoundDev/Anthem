@@ -7,8 +7,9 @@ export class Wall extends PhysObject {
     image?: HTMLImageElement;
     shootThrough: boolean = false;
 
-    constructor(x: number, y: number, w: number, h: number, image?: string, shootThrough: boolean = false) {
+    constructor(x: number, y: number, w: number, h: number, image?: string, shootThrough: boolean = false, id?: string) {
         super(x, y, w, h);
+        this.id = id;
         this.shootThrough = shootThrough;
         if(image){
             let imageElement = ASSET.getImage(image);
@@ -19,7 +20,7 @@ export class Wall extends PhysObject {
     }
 
     collide(obj: PhysObject): void {
-        
+
     }
 
     update(): void {

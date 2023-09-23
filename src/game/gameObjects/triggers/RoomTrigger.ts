@@ -17,7 +17,6 @@ export class RoomTrigger extends Actor {
 
     collide(obj: PhysObject): void {
         if(obj instanceof Player) {
-            console.log("player entered trigger");
             GAME.loadRoom(this.newRoom, this.transportX, this.transportY);
         }
     }

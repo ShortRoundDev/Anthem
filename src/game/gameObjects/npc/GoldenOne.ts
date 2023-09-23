@@ -2,12 +2,19 @@ import { ASSET, GAME, GFX, WND } from "../../../managers";
 import { Dialog } from "../../../managers/GameManager";
 import { Actor, AnimationDescription, Animation } from "../Actor";
 import { PhysObject } from "../PhysObject";
-import { Conversation, DrawTalkNotification, Talk, Talkable } from "../Talkable";
+import { Player } from "../Player";
+import { Prop } from "../Prop";
+import { CheckTalk, Conversation, DrawTalkNotification, Talk, Talkable } from "../Talkable";
+
+/* ==== Dialog ==== */
+import { GenerateMeetGoldenOne } from "./data/GoldenOne.dialog";
 
 export class GoldenOne extends Actor implements Talkable {
     /* ===== Actor properties ===== */
     actionKeyImage: HTMLImageElement;
     theta: number = 0;
+
+    static readonly NAME: string = "Golden One";
 
     /* ===== Talkable properties ===== */
     talkRadius: number;
@@ -29,27 +36,9 @@ export class GoldenOne extends Actor implements Talkable {
         this.actionKeyImage = ASSET.getImage("ActionKey") as HTMLImageElement;
 
         /* ===== Talkable constructor ===== */
-        this.talkRadius = 128;
+        this.talkRadius = 512;
         this.dialogOptions = new Map<string, Conversation>([
-            ["MeetGoldenOne", {
-                dialog: [
-                    {
-                        name: "Equality 7-2521",
-                        side: "right",
-                        text: `Oh Golden One, we hope that we will be assigned to
-                                the science council today! We are ever so clever,
-                                and our hands are too soft for the hoe!`, image: ASSET.getImage("PlayerDialog")!},
-                    {
-                        name: "Golden One",
-                        side: "left",
-                        text: `Indeed; your brains are too strong and your hands
-                                too weak to waste in the fields. The science council
-                                will surely see your worth!`, image: ASSET.getImage("GoldenOneDialog")!}
-                ],
-                callback: () => {
-                    console.log("GoldenOne callback");
-                }
-            }]
+            ["MeetGoldenOne", GenerateMeetGoldenOne()]
         ]);
 
         this.availableConversation = this.dialogOptions.get("MeetGoldenOne");
@@ -61,19 +50,8 @@ export class GoldenOne extends Actor implements Talkable {
 
     update(): void {
         this.updateFrame();
-
-        if(
-            WND.keyDown("e")
-            && this.availableConversation
-            && this.availableConversation.dialog.length
-            && this.distance(GAME.player!) < 128
-        ) {
-            this.angle = Math.atan2(
-                GAME.player!.aabb.y - this.aabb.y,
-                GAME.player!.aabb.x - this.aabb.x
-            ) - Math.PI/2;
-            Talk(this);
-        }
+        console.log("checking talk")
+        CheckTalk.call(this);
     }
 
     override draw(): void {
