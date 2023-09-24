@@ -37,12 +37,23 @@ export function Talk(talkable: Talkable & Actor, name?: string): void {
     GAME.showDialog(conversation, talkable);
 }
 
-function CreateDrawTalkNotificationClosure() {
+export function CreateDrawTalkNotificationClosure() {
+    let drawTalkIcon: (point: { x: number, y: number}, radius: number) => void = CreateDrawTalkIconClosure();
+
+    return function _DrawTalkNotification(this: any, talkable: Talkable, point: { x: number, y: number }): void {
+        if(!talkable.availableConversation?.dialog.length) {
+            return;
+        }
+        drawTalkIcon(point, talkable.talkRadius);
+    }
+}
+
+export function CreateDrawTalkIconClosure() {
     let theta: number = 0.0;
     let notificationImage: HTMLImageElement | null = null;
     let farNotificationImage: HTMLImageElement | null = null;
 
-    return function _DrawTalkNotification(talkable: Talkable, aabb: AABB): void {
+    return function _DrawTalkIcon(point: { x: number, y: number }, radius: number): void {
         theta += 0.07;
         if(notificationImage === null) {
             notificationImage = ASSET.getImage("ActionKey");
@@ -51,25 +62,22 @@ function CreateDrawTalkNotificationClosure() {
             farNotificationImage = ASSET.getImage("FarActionKey");
         }
 
-        if(!talkable.availableConversation?.dialog.length) {
-            return;
-        }
-
         let distance = Math.sqrt(
-            Math.pow(aabb.x - GAME.player!.aabb.x, 2) +
-            Math.pow(aabb.y - GAME.player!.aabb.y, 2)
+            Math.pow(point.x - GAME.player!.aabb.x, 2) +
+            Math.pow(point.y - GAME.player!.aabb.y, 2)
         );
 
         let image: HTMLImageElement = farNotificationImage!;
-        if(distance < talkable.talkRadius) {
+        if(distance < radius) {
             image = notificationImage!;
         }
 
         GFX.ctx.drawImage(
             image,
-            aabb.x + aabb.w/2 - 8, aabb.y - 48 + Math.cos(theta) * 6,
+            point.x - 8, point.y - 64 + Math.cos(theta) * 6,
             16, 37.5
         );
+
     }
 }
 
@@ -88,5 +96,5 @@ export function CheckTalk(this: Talkable & Actor) {
     }
 }
 
-export const DrawTalkNotification: (talkable: Talkable, aabb: AABB) => void
+export const DrawTalkNotification: (talkable: Talkable, point: { x: number, y: number }) => void
     = CreateDrawTalkNotificationClosure();

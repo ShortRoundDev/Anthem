@@ -56,6 +56,6 @@ export class GoldenOne extends Actor implements Talkable {
 
     override draw(): void {
         super.draw();
-        DrawTalkNotification(this, this.aabb);
+        DrawTalkNotification(this, this.aabb.midPoint);
     }
 }

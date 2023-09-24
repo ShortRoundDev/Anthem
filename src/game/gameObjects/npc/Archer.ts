@@ -69,6 +69,6 @@ export class Archer extends Killable implements Talkable {
 
     draw(): void {
         super.draw();
-        DrawTalkNotification(this, this.aabb);
+        DrawTalkNotification(this, this.aabb.midPoint);
     }
 }

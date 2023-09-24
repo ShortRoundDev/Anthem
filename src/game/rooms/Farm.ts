@@ -17,7 +17,9 @@ export class Farm extends IRoom {
             new Wall(0, 224, 640, 64, undefined, true),
             new Wall(768, 224, 183, 64, undefined, true),
             new Wall(936, 224, 16, 272, undefined, true),
-            new Wall(0, 480, 952, 64, undefined, true),
+            new Wall(0, 480, 640, 64, undefined, true),
+            new Wall(768, 480, 183, 64, undefined, true),
+            //new Wall(768, 480 + 640, 183, 64, undefined, true),
         ];
 
 

@@ -3,6 +3,8 @@ import { Barracks } from "../game/rooms/Barracks";
 import { Square } from "../game/rooms/Square";
 import { Farm } from "../game/rooms/Farm";
 import { NorthPath } from "../game/rooms/NorthPath";
+import { SouthernField } from "../game/rooms/SouthernField";
+import { Bunker } from "../game/rooms/Bunker";
 import { Conversation, DialogCallback, Talkable } from "../game/gameObjects/Talkable";
 
 import { Player } from "../game/gameObjects/Player";
@@ -69,9 +71,11 @@ export class GameManager {
         this.roomCache.set("Square", new Square());
         this.roomCache.set("Farm", new Farm());
         this.roomCache.set("NorthPath", new NorthPath());
+        this.roomCache.set("SouthernField", new SouthernField());
+        this.roomCache.set("Bunker", new Bunker());
 
         this.player = new Player(0, 0);
-        this.loadRoom("NorthPath", 512, 768 /2);
+        this.loadRoom("Bunker", 512, 768 /2);
     }
 
     draw() {
@@ -114,8 +118,15 @@ export class GameManager {
             box.innerHTML += `<button>Next</button>`;
 
             if(dialog.image){
-                let image = box.querySelector("#picture img")! as HTMLImageElement;
-                image.style.animationIterationCount = `${lines.length * 5}`;
+                if(dialog.image.width > 64){
+                    let image = box.querySelector("#picture img")! as HTMLImageElement;
+                    image.style.animationIterationCount = `${lines.length * 5}`;
+                } else {
+                    let pic: HTMLImageElement = box.querySelector("div#picture img")!;
+                    pic.style.width = "128px";
+                    pic.style.left = "0px";
+                    pic.style.right = "0px";
+                }
             }
 
             box.querySelector("button")!.addEventListener("click", this.nextDialog.bind(this));

@@ -14,11 +14,14 @@ export class AssetManager {
             this.loadImage("Trigger",   "dist/assets/trigger.png"),
             this.loadImage("GateOpen","dist/assets/gate-open.png"),
             this.loadImage("GateClosed","dist/assets/gate-closed.png"),
+            this.loadImage("Dirt",     "dist/assets/dirt.png"),
             //Rooms
             this.loadImage("Barracks",  "dist/assets/Barracks.png"),
             this.loadImage("Square",    "dist/assets/Square.png"),
             this.loadImage("Farm",      "dist/assets/Farm.png"),
             this.loadImage("NorthPath", "dist/assets/north_path.png"),
+            this.loadImage("SouthernField", "dist/assets/SouthernField.png"),
+            this.loadImage("Bunker", "dist/assets/Bunker.png"),
             //NPCs
             this.loadImage("Gardener",  "dist/assets/npc-gardener.png"),
             this.loadImage("Archer",  "dist/assets/archer.png"),
@@ -31,6 +34,7 @@ export class AssetManager {
             this.loadImage("PlayerDialog", "dist/assets/Player_Dialog.png"),
             this.loadImage("NPCDialog",    "dist/assets/NPC_Dialog.png"),
             this.loadImage("GoldenOneDialog", "dist/assets/GoldenOne_Dialog.png"),
+            this.loadImage("PrepperDialog", "dist/assets/Prepper.png"),
         ]);
     }
 

@@ -43,7 +43,7 @@ export class WindowManager {
                 key!.eventTime  = e.timeStamp;
             };
         });
-        
+
         window.addEventListener("keyup", (e) => {
             if (!this.keyMap.has(e.key)) {
                 this.keyMap.set(e.key, new KeyInfo(false, this.timeStamp, true));
